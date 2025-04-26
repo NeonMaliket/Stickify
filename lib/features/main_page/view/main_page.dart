@@ -9,9 +9,15 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.grey,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/texture.jpeg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         height: context.vh(100),
         width: context.vw(100),
+
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
           vertical: context.vh(5),
@@ -19,14 +25,14 @@ class MainPage extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           child: Column(
-            spacing: 15,
+            spacing: 10,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Header(),
-              SizedBox.fromSize(size: Size.fromHeight(50)),
+              SizedBox.fromSize(size: Size.fromHeight(10)),
               Body(),
-              SizedBox.fromSize(size: Size.fromHeight(50)),
+              SizedBox.fromSize(size: Size.fromHeight(15)),
               Footer(),
             ],
           ),

@@ -48,7 +48,7 @@ class AppButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             icon ?? SizedBox.shrink(),
-            SizedBox(width: 10),
+            SizedBox(width: 5),
             Text(
               title,
               style: context.telegramTheme().textTheme.titleSmall?.copyWith(

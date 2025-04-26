@@ -11,13 +11,19 @@ final ThemeData telegramWebAppTheme = ThemeData(
   ),
 
   textTheme: TextTheme(
-    titleLarge: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
+    titleLarge: TextStyle(
+      fontSize: 40,
+      fontWeight: FontWeight.w700,
+      color: Colors.white,
+    ),
     titleMedium: TextStyle(
+      color: Colors.white,
       fontSize: 35,
       fontWeight: FontWeight.w300,
       fontFamily: 'Lexend',
     ),
     titleSmall: TextStyle(
+      color: Colors.white,
       fontSize: 20,
       fontWeight: FontWeight.w300,
       fontFamily: 'Lexend',

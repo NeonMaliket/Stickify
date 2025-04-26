@@ -40,6 +40,7 @@ dependencies:
   file_picker: ^10.1.2
   pro_image_editor: ^9.5.2
   modal_bottom_sheet: ^3.0.0
+  toggle_switch: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -65,7 +66,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/9.jpg
+    - assets/images/texture.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

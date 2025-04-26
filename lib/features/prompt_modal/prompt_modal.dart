@@ -23,6 +23,14 @@ class _PromptModalState extends State<PromptModal> {
   Widget build(BuildContext context) {
     return Container(
       height: context.vh(50),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: Colors.orange, width: 1.2)),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+        image: DecorationImage(
+          image: AssetImage('assets/images/texture.jpeg'),
+          fit: BoxFit.cover,
+        ),
+      ),
       padding: const EdgeInsets.all(16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,

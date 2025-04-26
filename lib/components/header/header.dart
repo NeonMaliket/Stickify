@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:stickify/bloc/app_bloc.dart';
-import 'package:stickify/bloc/image_uploader/image_uploader_bloc.dart';
-import 'package:stickify/components/components.dart';
+import 'package:stickify/core/core.dart';
 import 'package:stickify/theme/app_theme.dart';
-
-import '../../features/prompt_modal/prompt_modal.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -19,40 +14,30 @@ class Header extends StatelessWidget {
           'Sticker Generator',
           style: context.telegramTheme().textTheme.titleLarge,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TweenButton(
-              isActive: true,
-              title: 'Upload',
-              icon: Icons.arrow_circle_up_rounded,
-              roundedSide: RoundedSide.left,
-              onClick: () {
-                context.read<ImageUploaderBloc>().add(ImageUploadEvent());
-              },
-            ),
-            TweenButton(
-              title: 'Generate',
-              icon: Icons.star,
-              roundedSide: RoundedSide.right,
-              onClick: () {
-                showMaterialModalBottomSheet(
-                  context: context,
-                  backgroundColor: context
-                      .telegramTheme()
-                      .colorScheme
-                      .secondary
-                      .withAlpha(70),
-                  builder:
-                      (context) => PromptModal(
-                        onSend: (prompt) {
-                          print('Prompt: $prompt');
-                        },
-                      ),
-                );
-              },
-            ),
-          ],
+        ToggleSwitch(
+          borderColor: [context.telegramTheme().colorScheme.primary],
+          borderWidth: 1,
+          minWidth: context.vw(90),
+          minHeight: 50,
+          inactiveFgColor: context.telegramTheme().colorScheme.primary,
+          inactiveBgColor: context.telegramTheme().colorScheme.secondary,
+          iconSize: 25,
+          fontSize:
+              context.telegramTheme().textTheme.titleSmall?.fontSize ?? 25,
+
+          initialLabelIndex: 0,
+          totalSwitches: 2,
+          labels: ['Upload', 'Generate'],
+          icons: [Icons.arrow_circle_up_rounded, Icons.star],
+
+          animate: true,
+          curve: Curves.easeInOut,
+
+          dividerColor: context.telegramTheme().colorScheme.primary,
+
+          onToggle: (index) {
+            print('switched to: $index');
+          },
         ),
       ],
     );
