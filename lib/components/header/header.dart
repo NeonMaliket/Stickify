@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stickify/bloc/app_bloc.dart';
 import 'package:stickify/bloc/image_uploader/image_uploader_bloc.dart';
 import 'package:stickify/components/components.dart';
+import 'package:stickify/theme/app_theme.dart';
 
 class Header extends StatelessWidget {
   const Header({super.key});
@@ -13,7 +14,7 @@ class Header extends StatelessWidget {
       children: [
         Text(
           'Sticker Generator',
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          style: context.telegramTheme().textTheme.titleLarge,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

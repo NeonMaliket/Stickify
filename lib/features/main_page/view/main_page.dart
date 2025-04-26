@@ -8,7 +8,11 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: Container(
+        color: Colors.grey,
+        height: context.vh(100),
+        width: context.vw(100),
+        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
           vertical: context.vh(5),
           horizontal: context.vw(5),
@@ -18,7 +22,13 @@ class MainPage extends StatelessWidget {
             spacing: 15,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [Header(), Body(), Footer()],
+            children: [
+              Header(),
+              SizedBox.fromSize(size: Size.fromHeight(50)),
+              Body(),
+              SizedBox.fromSize(size: Size.fromHeight(50)),
+              Footer(),
+            ],
           ),
         ),
       ),

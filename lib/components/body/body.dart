@@ -3,7 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stickify/bloc/app_bloc.dart';
+import 'package:stickify/components/body/upload_select.dart';
 import 'package:stickify/core/core.dart';
+import 'package:stickify/theme/app_theme.dart';
 
 class Body extends StatelessWidget {
   const Body({super.key});
@@ -12,18 +14,10 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Preview',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        Container(
-          width: context.vw(70),
-          height: context.vw(70),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.grey.withAlpha(50),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
+        Text('Preview', style: context.telegramTheme().textTheme.titleMedium),
+        SizedBox(
+          width: context.vw(100),
+          height: context.vw(100),
           child: BlocBuilder<ImageUploaderBloc, ImageUploaderState>(
             builder: (_, imageUploaderState) {
               return BlocBuilder<ImageEditorBloc, ImageEditorState>(
@@ -42,7 +36,7 @@ class Body extends StatelessWidget {
                   if (imageBytes != null) {
                     return Image.memory(imageBytes, fit: BoxFit.contain);
                   }
-                  return Icon(Icons.add, size: 60);
+                  return UploadSelect();
                 },
               );
             },

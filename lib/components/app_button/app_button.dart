@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stickify/core/core.dart';
+import 'package:stickify/theme/app_theme.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({
@@ -22,19 +23,23 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var primaryColor = context.telegramTheme().colorScheme.primary;
+    var secondaryColor = context.telegramTheme().colorScheme.secondary;
     return SizedBox(
       width: context.vw(width),
       height: 50,
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(
-            type.isPrimary() ? Colors.blue : Colors.white,
+            type.isPrimary()
+                ? primaryColor
+                : context.telegramTheme().colorScheme.secondary,
           ),
-          foregroundColor: WidgetStatePropertyAll(Colors.blue),
+          foregroundColor: WidgetStatePropertyAll(primaryColor),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: borderRadius ?? BorderRadius.circular(12),
-              side: BorderSide(color: Colors.blue, width: 1),
+              side: BorderSide(color: primaryColor, width: 1),
             ),
           ),
         ),
@@ -46,10 +51,8 @@ class AppButton extends StatelessWidget {
             SizedBox(width: 10),
             Text(
               title,
-              style: TextStyle(
-                color: type.isPrimary() ? Colors.white : Colors.blue,
-                fontWeight: FontWeight.w500,
-                fontSize: 20,
+              style: context.telegramTheme().textTheme.titleSmall?.copyWith(
+                color: type.isPrimary() ? secondaryColor : primaryColor,
               ),
             ),
           ],
