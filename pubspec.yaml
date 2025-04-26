@@ -39,6 +39,7 @@ dependencies:
   equatable: ^2.0.7
   file_picker: ^10.1.2
   pro_image_editor: ^9.5.2
+  modal_bottom_sheet: ^3.0.0
 
 dev_dependencies:
   flutter_test:
