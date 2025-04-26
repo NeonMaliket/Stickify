@@ -13,10 +13,15 @@ class ImageEditorBloc extends Bloc<ImageEditorEvent, ImageEditorState> {
   ImageEditorBloc(this._context, this._imageUploaderBloc)
     : super(ImageEditorInitial()) {
     on<EditImageEvent>(onEditEvent);
+    on<ResetEditImageEvent>(onResetEditImageEvent);
   }
 
   final BuildContext _context;
   final ImageUploaderBloc _imageUploaderBloc;
+
+  void onResetEditImageEvent(ResetEditImageEvent event, emit) {
+    emit(ImageEditorInitial());
+  }
 
   void onEditEvent(EditImageEvent event, emit) async {
     print('Edit event');
@@ -32,7 +37,7 @@ class ImageEditorBloc extends Bloc<ImageEditorEvent, ImageEditorState> {
       }
 
       final result = await Navigator.push<Uint8List?>(
-        event.context,
+        _context,
         MaterialPageRoute(
           builder:
               (context) => ProImageEditor.memory(

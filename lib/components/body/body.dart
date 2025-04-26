@@ -30,12 +30,13 @@ class Body extends StatelessWidget {
                 builder: (_, imageEditorState) {
                   Uint8List? imageBytes;
 
+                  if (imageUploaderState is ImageUploadCompleteState &&
+                      imageUploaderState.file.isNotEmpty) {
+                    imageBytes = imageUploaderState.file;
+                  }
                   if (imageEditorState is EditCompleteState &&
                       imageEditorState.editedImage.isNotEmpty) {
                     imageBytes = imageEditorState.editedImage;
-                  } else if (imageUploaderState is ImageUploadCompleteState &&
-                      imageUploaderState.file.isNotEmpty) {
-                    imageBytes = imageUploaderState.file;
                   }
 
                   if (imageBytes != null) {

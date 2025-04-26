@@ -16,11 +16,17 @@ class ImageUploaderBloc extends Bloc<ImageUploaderEvent, ImageUploaderState> {
 
   void onUploadEvent(ImageUploadEvent event, emit) async {
     var pickImage = await _pickImage().onError((error, stackTrace) {
+      print("error: $error");
+
       emit(ImageUploadingErrorState(error.toString()));
       return null;
     });
 
     if (pickImage == null) {
+      return;
+    }
+
+    if (pickImage.isEmpty && state is ImageUploadCompleteState) {
       return;
     }
 
@@ -39,6 +45,6 @@ class ImageUploaderBloc extends Bloc<ImageUploaderEvent, ImageUploaderState> {
       var bytes2 = result.files.single.bytes;
       return bytes2;
     }
-    return Future.error('Uploading failed');
+    return Uint8List(0);
   }
 }
