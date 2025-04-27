@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stickify/bloc/menu_cubit/menu_cubit.dart';
 import 'package:stickify/core/core.dart';
 import 'package:stickify/theme/app_theme.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -8,6 +10,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final menuCubit = context.read<MenuCubit>();
     return Column(
       children: [
         Text(
@@ -24,20 +27,14 @@ class Header extends StatelessWidget {
           iconSize: 25,
           fontSize:
               context.telegramTheme().textTheme.titleSmall?.fontSize ?? 25,
-
-          initialLabelIndex: 0,
+          initialLabelIndex: context.watch<MenuCubit>().state.index,
           totalSwitches: 2,
           labels: ['Upload', 'Generate'],
           icons: [Icons.arrow_circle_up_rounded, Icons.star],
-
           animate: true,
           curve: Curves.easeInOut,
-
           dividerColor: context.telegramTheme().colorScheme.primary,
-
-          onToggle: (index) {
-            print('switched to: $index');
-          },
+          onToggle: menuCubit.followBy,
         ),
       ],
     );

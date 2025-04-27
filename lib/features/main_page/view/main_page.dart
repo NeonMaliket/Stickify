@@ -17,25 +17,22 @@ class MainPage extends StatelessWidget {
         ),
         height: context.vh(100),
         width: context.vw(100),
-
         alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
           vertical: context.vh(5),
           horizontal: context.vw(5),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            spacing: 10,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Header(),
-              SizedBox.fromSize(size: Size.fromHeight(10)),
-              Body(),
-              SizedBox.fromSize(size: Size.fromHeight(15)),
-              Footer(),
-            ],
-          ),
+        child: Column(
+          spacing: 10,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Header(),
+            SizedBox.fromSize(size: Size.fromHeight(10)),
+            Body(),
+            SizedBox.fromSize(size: Size.fromHeight(15)),
+            Footer(),
+          ],
         ),
       ),
     );

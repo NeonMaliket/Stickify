@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pro_image_editor/pro_image_editor.dart';
 import 'package:stickify/bloc/image_uploader/image_uploader_bloc.dart';
+import 'package:stickify/core/logger.dart';
 
 part 'image_editor_event.dart';
 part 'image_editor_state.dart';
@@ -24,7 +25,7 @@ class ImageEditorBloc extends Bloc<ImageEditorEvent, ImageEditorState> {
   }
 
   void onEditEvent(EditImageEvent event, emit) async {
-    print('Edit event');
+    logger.e('Edit event');
 
     final imageUploaderState = _imageUploaderBloc.state;
     if (imageUploaderState is ImageUploadCompleteState) {

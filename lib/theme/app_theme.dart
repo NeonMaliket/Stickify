@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 final ThemeData telegramWebAppTheme = ThemeData(
   scaffoldBackgroundColor: Colors.black12,
   buttonTheme: ButtonThemeData(buttonColor: Colors.blue),
-
   colorScheme: ColorScheme.fromSeed(
     seedColor: Colors.grey,
     primary: Colors.blue,
     secondary: Colors.white,
   ),
-
   textTheme: TextTheme(
     titleLarge: TextStyle(
       fontSize: 40,

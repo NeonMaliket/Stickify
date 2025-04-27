@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:meta/meta.dart';
+import 'package:stickify/core/logger.dart';
 
 part 'image_uploader_event.dart';
 part 'image_uploader_state.dart';
@@ -16,7 +17,7 @@ class ImageUploaderBloc extends Bloc<ImageUploaderEvent, ImageUploaderState> {
 
   void onUploadEvent(ImageUploadEvent event, emit) async {
     var pickImage = await _pickImage().onError((error, stackTrace) {
-      print("error: $error");
+      logger.e("error: $error");
 
       emit(ImageUploadingErrorState(error.toString()));
       return null;
@@ -32,7 +33,7 @@ class ImageUploaderBloc extends Bloc<ImageUploaderEvent, ImageUploaderState> {
 
     emit(ImageUploadCompleteState(pickImage));
 
-    print("Upload complete: ${pickImage.length}");
+    logger.i("Upload complete: ${pickImage.length}");
   }
 
   Future<Uint8List?> _pickImage() async {

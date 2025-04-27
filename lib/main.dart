@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stickify/bloc/image_uploader/image_uploader_bloc.dart';
+import 'package:stickify/bloc/menu_cubit/menu_cubit.dart';
 import 'package:stickify/theme/app_theme.dart';
 
 import 'bloc/image_editor/image_editor_bloc.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
                 (ctx) => ImageEditorBloc(ctx, ctx.read<ImageUploaderBloc>()),
           ),
           BlocProvider(create: (_) => ImageGeneratorBloc()),
+          BlocProvider(create: (_) => MenuCubit()),
         ],
         child: const MainPage(),
       ),

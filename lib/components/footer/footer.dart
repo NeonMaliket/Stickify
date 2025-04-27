@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stickify/bloc/app_bloc.dart';
 import 'package:stickify/components/components.dart';
+import 'package:stickify/core/logger.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -17,7 +18,7 @@ class Footer extends StatelessWidget {
           title: "Edit",
           type: ButtonType.secondary,
           onClick: () {
-            print('Edit button');
+            logger.e('Edit button');
             bloc.add(EditImageEvent(context));
           },
         ),
@@ -25,7 +26,7 @@ class Footer extends StatelessWidget {
           title: "Upload to Telegram",
           type: ButtonType.primary,
           onClick: () {
-            print('Upload button');
+            logger.e('Upload button');
           },
         ),
       ],
