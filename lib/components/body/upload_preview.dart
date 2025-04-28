@@ -36,7 +36,12 @@ class UploadPreview extends StatelessWidget {
                   if (imageBytes != null) {
                     return Image.memory(imageBytes, fit: BoxFit.contain);
                   }
-                  return UploadSelect();
+                  return UploadSelect(
+                    onTap: () {
+                      context.read<ImageUploaderBloc>().add(ImageUploadEvent());
+                    },
+                    child: Icon(Icons.add, size: 100, color: Colors.black38),
+                  );
                 },
               );
             },

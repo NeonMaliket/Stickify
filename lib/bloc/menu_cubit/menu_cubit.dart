@@ -33,4 +33,12 @@ class MenuCubit extends Cubit<MenuState> {
   int currentIndex() {
     return state.index;
   }
+
+  bool isUploadItem() {
+    return state is UploadMenuItem;
+  }
+
+  bool isGenerateItem() {
+    return state is GenerateMenuItem;
+  }
 }

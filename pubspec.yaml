@@ -41,6 +41,9 @@ dependencies:
   pro_image_editor: ^9.5.2
   toggle_switch: ^2.3.0
   logger: ^2.5.0
+  material_text_fields: ^1.0.6
+  dio: ^5.8.0+1
+  loader_overlay: ^5.0.0
 
 dev_dependencies:
   flutter_test:

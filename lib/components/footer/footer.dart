@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stickify/bloc/app_bloc.dart';
+import 'package:stickify/bloc/telegram_cubit/telegram_cubit.dart';
 import 'package:stickify/components/components.dart';
 import 'package:stickify/core/logger.dart';
 
@@ -11,6 +12,7 @@ class Footer extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<ImageEditorBloc>();
 
+    final telegramCubit = context.read<TelegramCubit>();
     return Column(
       spacing: 10,
       children: [
@@ -18,7 +20,7 @@ class Footer extends StatelessWidget {
           title: "Edit",
           type: ButtonType.secondary,
           onClick: () {
-            logger.e('Edit button');
+            logger.i('Edit button');
             bloc.add(EditImageEvent(context));
           },
         ),
@@ -26,7 +28,8 @@ class Footer extends StatelessWidget {
           title: "Upload to Telegram",
           type: ButtonType.primary,
           onClick: () {
-            logger.e('Upload button');
+            logger.i('Upload button');
+            telegramCubit.uploadToTelegram('7792645005');
           },
         ),
       ],

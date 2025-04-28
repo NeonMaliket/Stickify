@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stickify/bloc/menu_cubit/menu_cubit.dart';
+import 'package:stickify/components/body/generate_preview.dart';
 import 'package:stickify/components/body/upload_preview.dart';
 import 'package:stickify/core/core.dart';
 
@@ -45,12 +46,7 @@ class _BodyState extends State<Body> {
         child: PageView(
           onPageChanged: menuCubit.followBy,
           controller: _controller,
-          children: [
-            UploadPreview(),
-            Center(
-              child: Text('GENERATE', style: TextStyle(color: Colors.white)),
-            ),
-          ],
+          children: [UploadPreview(), GeneratePreview()],
         ),
       ),
     );
