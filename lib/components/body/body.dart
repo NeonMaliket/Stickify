@@ -44,7 +44,7 @@ class _BodyState extends State<Body> {
         width: context.vw(100),
         height: context.vh(55),
         child: PageView(
-          onPageChanged: menuCubit.followBy,
+          physics: const NeverScrollableScrollPhysics(),
           controller: _controller,
           children: [UploadPreview(), GeneratePreview()],
         ),

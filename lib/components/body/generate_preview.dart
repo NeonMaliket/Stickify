@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 import 'package:stickify/bloc/ai_cubit/ai_cubit.dart';
+import 'package:stickify/bloc/loader_cubit/loader_cubit.dart';
 import 'package:stickify/components/body/upload_select.dart';
 import 'package:stickify/core/core.dart';
 import 'package:stickify/core/logger.dart';
@@ -27,7 +29,11 @@ class _GeneratePreviewState extends State<GeneratePreview> {
 
   @override
   Widget build(BuildContext context) {
-    final textStileSmall = context.telegramTheme().textTheme.titleSmall;
+    final textStileSmall = context
+        .telegramTheme()
+        .textTheme
+        .titleSmall;
+    final loaderBloc = context.read<LoaderCubit>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,7 +41,10 @@ class _GeneratePreviewState extends State<GeneratePreview> {
       children: [
         Text(
           'Generate Sticker with AI',
-          style: context.telegramTheme().textTheme.titleMedium,
+          style: context
+              .telegramTheme()
+              .textTheme
+              .titleMedium,
           textAlign: TextAlign.center,
         ),
         Form(
@@ -50,7 +59,10 @@ class _GeneratePreviewState extends State<GeneratePreview> {
             textInputAction: TextInputAction.next,
             prefixIcon: Icon(
               Icons.add_box_outlined,
-              color: context.telegramTheme().colorScheme.primary,
+              color: context
+                  .telegramTheme()
+                  .colorScheme
+                  .primary,
             ),
             controller: _controller,
             validator: FormValidation.requiredTextField,
@@ -86,10 +98,7 @@ class _GeneratePreviewState extends State<GeneratePreview> {
                     ),
                   );
                 } else if (state is AiGenerating) {
-                  return SizedBox(
-                    width: 50,
-                    child: CircularProgressIndicator(),
-                  );
+                  return SizedBox.expand();
                 }
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,

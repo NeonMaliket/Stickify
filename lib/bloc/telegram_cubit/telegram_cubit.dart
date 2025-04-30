@@ -7,27 +7,29 @@ import 'package:meta/meta.dart';
 import 'package:stickify/bloc/ai_cubit/ai_cubit.dart';
 import 'package:stickify/bloc/app_bloc.dart';
 import 'package:stickify/bloc/menu_cubit/menu_cubit.dart';
+import 'package:stickify/core/constants/error_messages.dart';
 import 'package:stickify/core/dio.dart';
 import 'package:stickify/core/logger.dart';
 
 part 'telegram_state.dart';
 
+const _filename = 'sticker.png';
+
 class TelegramCubit extends Cubit<TelegramState> {
   TelegramCubit(
-    this._imageEditorBloc,
     this._aiCubit,
     this._menuCubit,
+    this._imageEditorBloc,
     this._imageUploaderBloc,
   ) : super(TelegramInitial());
 
-  final ImageEditorBloc _imageEditorBloc;
   final AiCubit _aiCubit;
-
   final MenuCubit _menuCubit;
+
+  final ImageEditorBloc _imageEditorBloc;
   final ImageUploaderBloc _imageUploaderBloc;
 
   void uploadToTelegram(String chatId) async {
-    //7792645005
     Uint8List? sticker;
 
     final editorState = _imageEditorBloc.state;
@@ -44,26 +46,23 @@ class TelegramCubit extends Cubit<TelegramState> {
     }
 
     if (sticker == null) {
-      emit(TelegramUploadError('Upload failed. Sticker is absent'));
+      emit(TelegramUploadError(stickerIsAbsentErrorMessage));
       return;
     }
 
-    final path = "$serverHost/api/v1/stickify/upload/$chatId";
+    final path = "${serverHost()}/api/v1/stickify/upload/$chatId";
     logger.i('Uploading sticker to telegram');
     logger.i('Path: $path');
     try {
       emit(TelegramUploadingInProgress());
       final formData = FormData.fromMap({
-        'sticker': MultipartFile.fromBytes(
-          sticker ?? Uint8List(0),
-          filename: 'sticker.png',
-        ),
+        'sticker': MultipartFile.fromBytes(sticker, filename: _filename),
       });
       final response = await dio.post(path, data: formData);
       if (response.statusCode == 200) {
         emit(TelegramUploaded());
       } else {
-        emit(TelegramUploadError('Upload failed'));
+        emit(TelegramUploadError(uploadFailedErrorMessage));
       }
     } catch (e) {
       emit(TelegramUploadError(e.toString()));

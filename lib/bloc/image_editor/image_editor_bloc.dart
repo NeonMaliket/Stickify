@@ -15,22 +15,17 @@ part 'image_editor_state.dart';
 class ImageEditorBloc extends Bloc<ImageEditorEvent, ImageEditorState> {
   ImageEditorBloc(
     this._context,
-    this._imageUploaderBloc,
     this._aiCubit,
     this._menuCubit,
+    this._imageUploaderBloc,
   ) : super(ImageEditorInitial()) {
     on<EditImageEvent>(onEditEvent);
-    on<ResetEditImageEvent>(onResetEditImageEvent);
   }
 
-  final BuildContext _context;
-  final ImageUploaderBloc _imageUploaderBloc;
   final AiCubit _aiCubit;
   final MenuCubit _menuCubit;
-
-  void onResetEditImageEvent(ResetEditImageEvent event, emit) {
-    emit(ImageEditorInitial());
-  }
+  final BuildContext _context;
+  final ImageUploaderBloc _imageUploaderBloc;
 
   void onEditEvent(EditImageEvent event, emit) async {
     logger.i('Edit event');

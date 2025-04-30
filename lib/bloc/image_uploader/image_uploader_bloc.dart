@@ -16,7 +16,7 @@ class ImageUploaderBloc extends Bloc<ImageUploaderEvent, ImageUploaderState> {
   }
 
   void onUploadEvent(ImageUploadEvent event, emit) async {
-    var pickImage = await _pickImage().onError((error, stackTrace) {
+    var pickImage = await _pickImage().onError((error, _) {
       logger.e("error: $error");
 
       emit(ImageUploadingErrorState(error.toString()));
