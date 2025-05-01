@@ -1,72 +1,47 @@
-name: Deploy to DigitalOcean
-
+name: Release to Firebase Hosting
 on:
   push:
     branches:
       - master
-
 jobs:
-  deploy:
+  build_and_deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Docker image locally
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          flutter-version: 3.24.3
+      - run: flutter channel stable
+      - run: flutter doctor -v
+      - uses: actions/checkout@v4
+      - run: flutter build web --no-tree-shake-icons --dart-define=PROFILE=prod --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+      - name: Bump version
+        id: versioning
         run: |
-          docker build -t stickify .
+          VERSION=$(grep '^version:' pubspec.yaml | sed 's/version: //g')
+          BASE_VERSION=$(echo $VERSION | cut -d+ -f1)
+          BUILD_NUMBER=$(echo $VERSION | grep -o '+[0-9]*' | cut -d+ -f2)
 
-      - name: Save Docker image to archive
-        run: |
-          docker save stickify | gzip > stickify.tar.gz
+          VERSION_PARTS=(${BASE_VERSION//./ })
+          VERSION_PARTS[2]=$((VERSION_PARTS[2]+1))
+          UPDATED_BASE_VERSION=$(IFS=. ; echo "${VERSION_PARTS[*]}")
 
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass
+          if [ -z "$BUILD_NUMBER" ]; then
+              BUILD_NUMBER=0
+          fi
 
-      - name: Upload Docker image archive to server
-        env:
-          DO_PASSWORD: ${{ secrets.DIGITALOCEAN_PASSWORD }}
-          DO_IP: ${{ secrets.DIGITALOCEAN_IP }}
-        run: |
-          sshpass -p "$DO_PASSWORD" scp -o StrictHostKeyChecking=no stickify.tar.gz root@$DO_IP:/tmp/
+          NEW_BUILD_NUMBER=$((BUILD_NUMBER+1))
+          echo "New Version: $UPDATED_BASE_VERSION+$NEW_BUILD_NUMBER"
 
-      - name: SSH to DigitalOcean and deploy
-        env:
-          DO_PASSWORD: ${{ secrets.DIGITALOCEAN_PASSWORD }}
-          DO_IP: ${{ secrets.DIGITALOCEAN_IP }}
-          STICKIFY_API: ${{ secrets.STICKIFY_API }}
-        run: |
-          sshpass -p "$DO_PASSWORD" ssh -o StrictHostKeyChecking=no root@$DO_IP << EOF
-            # Открываем необходимые порты
-            sudo ufw allow 3000
-            sudo ufw reload || sudo ufw enable
+          sed -i "s/version: $VERSION/version: $UPDATED_BASE_VERSION+$NEW_BUILD_NUMBER/g" pubspec.yaml
 
-            # Проверка, установлен ли Docker
-            if ! command -v docker &> /dev/null
-            then
-                echo "Docker не установлен. Устанавливаем Docker."
-                sudo apt-get update
-                sudo apt-get install -y docker.io
-            else
-                echo "Docker уже установлен."
-            fi
-
-            # Останавливаем и удаляем старый контейнер190
-            docker stop stickify || true
-            docker rm stickify || true
-
-            # Удаляем старый образ (если есть)
-            docker images -q stickify | xargs -r docker rmi -f || true
-
-            # Загружаем новый образ
-            docker load < /tmp/stickify.tar.gz
-
-            # Запускаем новый контейнер
-            docker run -p 3000:80 -d --name stickify \
-              -e STICKIFY_API="$STICKIFY_API" \
-              stickify
-          EOF
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git commit -am "Bump version to $UPDATED_BASE_VERSION+$NEW_BUILD_NUMBER"
+          git push origin release
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SECRET }}
+          channelId: live
+          projectId: stickify
