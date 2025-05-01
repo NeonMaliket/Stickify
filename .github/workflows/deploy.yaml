@@ -21,3 +21,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           channelId: live
           projectId: stickify
+
