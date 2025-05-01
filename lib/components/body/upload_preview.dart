@@ -16,8 +16,8 @@ class UploadPreview extends StatelessWidget {
       children: [
         Text('Preview', style: context.telegramTheme().textTheme.titleMedium),
         SizedBox(
-          width: context.vw(100),
-          height: context.vw(100),
+          width: context.vw(70),
+          height: context.vw(70),
           child: BlocBuilder<ImageUploaderBloc, ImageUploaderState>(
             builder: (_, imageUploaderState) {
               return BlocBuilder<ImageEditorBloc, ImageEditorState>(
