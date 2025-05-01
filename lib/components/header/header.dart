@@ -13,10 +13,10 @@ class Header extends StatelessWidget {
     final menuCubit = context.read<MenuCubit>();
     return Column(
       children: [
-        Text(
-          'Sticker Generator',
-          style: context.telegramTheme().textTheme.titleLarge,
-        ),
+        // Text(
+        //   'Sticker Generator',
+        //   style: context.telegramTheme().textTheme.titleLarge,
+        // ),
         ToggleSwitch(
           borderColor: [context.telegramTheme().colorScheme.primary],
           borderWidth: 1,
