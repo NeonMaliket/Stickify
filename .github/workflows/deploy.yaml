@@ -70,4 +70,3 @@ jobs:
               -e STICKIFY_API="$STICKIFY_API" \
               stickify
           EOF
-  
