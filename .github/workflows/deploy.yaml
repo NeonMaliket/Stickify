@@ -1,0 +1,73 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image locally
+        run: |
+          docker build -t stickify .
+
+      - name: Save Docker image to archive
+        run: |
+          docker save stickify | gzip > stickify.tar.gz
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+
+      - name: Upload Docker image archive to server
+        env:
+          DO_PASSWORD: ${{ secrets.DIGITALOCEAN_PASSWORD }}
+          DO_IP: ${{ secrets.DIGITALOCEAN_IP }}
+        run: |
+          sshpass -p "$DO_PASSWORD" scp -o StrictHostKeyChecking=no stickify.tar.gz root@$DO_IP:/tmp/
+
+      - name: SSH to DigitalOcean and deploy
+        env:
+          DO_PASSWORD: ${{ secrets.DIGITALOCEAN_PASSWORD }}
+          DO_IP: ${{ secrets.DIGITALOCEAN_IP }}
+          STICKIFY_API: ${{ secrets.STICKIFY_API }}
+        run: |
+          sshpass -p "$DO_PASSWORD" ssh -o StrictHostKeyChecking=no root@$DO_IP << EOF
+            # Открываем необходимые порты
+            sudo ufw allow 3000
+            sudo ufw reload || sudo ufw enable
+
+            # Проверка, установлен ли Docker
+            if ! command -v docker &> /dev/null
+            then
+                echo "Docker не установлен. Устанавливаем Docker."
+                sudo apt-get update
+                sudo apt-get install -y docker.io
+            else
+                echo "Docker уже установлен."
+            fi
+
+            # Останавливаем и удаляем старый контейнер190
+            docker stop stickify || true
+            docker rm stickify || true
+
+            # Удаляем старый образ (если есть)
+            docker images -q stickify | xargs -r docker rmi -f || true
+
+            # Загружаем новый образ
+            docker load < /tmp/stickify.tar.gz
+
+            # Запускаем новый контейнер
+            docker run -p 3000:8080 -d --name stickify \
+              -e STICKIFY_API="$STICKIFY_API" \
+              stickify
+          EOF
+  
