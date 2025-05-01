@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:new_telegram_web_app/telegram_web_app.dart';
 import 'package:stickify/bloc/app_bloc.dart';
 import 'package:stickify/bloc/telegram_cubit/telegram_cubit.dart';
 import 'package:stickify/components/components.dart';
@@ -29,7 +30,7 @@ class Footer extends StatelessWidget {
           type: ButtonType.primary,
           onClick: () {
             logger.i('Upload button');
-            telegramCubit.uploadToTelegram('7792645005');
+            telegramCubit.uploadToTelegram("${TelegramWebApp.instance.initData.user.id}");
           },
         ),
       ],
