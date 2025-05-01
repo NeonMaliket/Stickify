@@ -6,4 +6,8 @@ document.addEventListener("touchmove", function (event) {
     });
 
 //DEV TOOLS
-eruda.init();
+window.onload = function() {
+    if (window.eruda) {
+        eruda.init();
+    }
+}
