@@ -30,7 +30,7 @@ class Footer extends StatelessWidget {
           type: ButtonType.primary,
           onClick: () {
             logger.i('Upload button');
-            telegramCubit.uploadToTelegram("${TelegramWebApp.instance.initData.user.id}");
+            telegramCubit.uploadToTelegram("");
           },
         ),
       ],
