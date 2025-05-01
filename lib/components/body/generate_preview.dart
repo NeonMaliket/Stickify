@@ -33,11 +33,10 @@ class _GeneratePreviewState extends State<GeneratePreview> {
         .telegramTheme()
         .textTheme
         .titleSmall;
-    final loaderBloc = context.read<LoaderCubit>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
-      spacing: 20,
+      spacing: 10,
       children: [
         Text(
           'Generate Sticker with AI',

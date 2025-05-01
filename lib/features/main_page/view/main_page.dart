@@ -30,9 +30,9 @@ class MainPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Header(),
-              SizedBox.fromSize(size: Size.fromHeight(10)),
+              SizedBox.fromSize(size: Size.fromHeight(16)),
               Body(),
-              SizedBox.fromSize(size: Size.fromHeight(15)),
+              SizedBox.fromSize(size: Size.fromHeight(10)),
               Footer(),
             ],
           ),
