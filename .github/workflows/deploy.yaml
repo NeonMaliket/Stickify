@@ -20,5 +20,5 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SECRET }}
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           channelId: live
-          projectId: Stickify
+          projectId: stickify-d4cd9
 
