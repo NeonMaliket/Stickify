@@ -27,10 +27,7 @@ class _GeneratePreviewState extends State<GeneratePreview> {
 
   @override
   Widget build(BuildContext context) {
-    final textStileSmall = context
-        .telegramTheme()
-        .textTheme
-        .titleSmall;
+    final textStileSmall = context.telegramTheme().textTheme.titleSmall;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,10 +35,7 @@ class _GeneratePreviewState extends State<GeneratePreview> {
       children: [
         Text(
           'Generate with AI',
-          style: context
-              .telegramTheme()
-              .textTheme
-              .titleMedium,
+          style: context.telegramTheme().textTheme.titleMedium,
           textAlign: TextAlign.center,
         ),
         Form(
@@ -56,10 +50,7 @@ class _GeneratePreviewState extends State<GeneratePreview> {
             textInputAction: TextInputAction.next,
             prefixIcon: Icon(
               Icons.add_box_outlined,
-              color: context
-                  .telegramTheme()
-                  .colorScheme
-                  .primary,
+              color: context.telegramTheme().colorScheme.primary,
             ),
             controller: _controller,
             validator: FormValidation.requiredTextField,
@@ -106,6 +97,21 @@ class _GeneratePreviewState extends State<GeneratePreview> {
                       color: Colors.orange,
                     ),
                     Text('Send to AI', style: textStileSmall),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '100',
+                          style: context.telegramTheme().textTheme.titleSmall,
+                        ),
+                        Image.asset(
+                          'assets/images/star_icon.png',
+                          width: 30,
+                          height: 30,
+                        ),
+                      ],
+                    ),
                   ],
                 );
               },

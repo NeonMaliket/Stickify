@@ -154,10 +154,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_bloc
-      sha256: "1046d719fbdf230330d3443187cc33cc11963d15c9089f6cc56faa42a4c5f0cc"
+      sha256: cf51747952201a455a1c840f8171d273be009b932c75093020f9af64f2123e38
       url: "https://pub.dev"
     source: hosted
-    version: "9.1.0"
+    version: "9.1.1"
   flutter_dropdown_alert:
     dependency: "direct main"
     description:
@@ -372,10 +372,10 @@ packages:
     dependency: "direct main"
     description:
       name: pro_image_editor
-      sha256: dba5c1c869209aac513786ea6aee36333dde0e2c68d888d6f4583b46db0604f9
+      sha256: "6a0a5a05663cc34950cdabd362b1f1517f1de6158711c645669644abfcae2efe"
       url: "https://pub.dev"
     source: hosted
-    version: "9.6.0"
+    version: "9.7.0"
   provider:
     dependency: transitive
     description:
