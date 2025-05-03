@@ -42,7 +42,7 @@ class _BodyState extends State<Body> {
       },
       child: SizedBox(
         width: context.vw(100),
-        height: context.vh(40),
+        height: context.vh(50),
         child: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _controller,
