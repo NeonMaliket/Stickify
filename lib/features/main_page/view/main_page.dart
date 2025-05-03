@@ -25,15 +25,11 @@ class MainPage extends StatelessWidget {
             horizontal: context.vw(5),
           ),
           child: Column(
-            spacing: 10,
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Header(),
-              SizedBox.fromSize(size: Size.fromHeight(16)),
-              Body(),
-              SizedBox.fromSize(size: Size.fromHeight(10)),
-              Footer(),
+              Expanded(child: Header()),
+              Expanded(child: Body()),
+              Expanded(child: Footer()),
             ],
           ),
         ),
