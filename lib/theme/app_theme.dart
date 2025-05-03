@@ -16,7 +16,7 @@ final ThemeData telegramWebAppTheme = ThemeData(
     ),
     titleMedium: TextStyle(
       color: Colors.white,
-      fontSize: 35,
+      fontSize: 25,
       fontWeight: FontWeight.w300,
       fontFamily: 'Lexend',
     ),

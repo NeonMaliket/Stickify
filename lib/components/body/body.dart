@@ -23,7 +23,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    final menuCubit = context.read<MenuCubit>();
     return BlocListener<MenuCubit, MenuState>(
       listener: (context, state) {
         if (state is UploadMenuItem && _controller.page != 0) {

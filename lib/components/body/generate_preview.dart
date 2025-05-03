@@ -37,7 +37,7 @@ class _GeneratePreviewState extends State<GeneratePreview> {
       spacing: 10,
       children: [
         Text(
-          'Generate Sticker with AI',
+          'Generate with AI',
           style: context
               .telegramTheme()
               .textTheme
@@ -74,7 +74,7 @@ class _GeneratePreviewState extends State<GeneratePreview> {
           ),
         ),
         SizedBox.fromSize(
-          size: Size(context.vw(50), context.vw(50)),
+          size: Size(context.vw(40), context.vw(40)),
           child: UploadSelect(
             onTap: () {
               logger.i('Generate AI');
