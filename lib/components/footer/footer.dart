@@ -5,6 +5,7 @@ import 'package:stickify/bloc/app_bloc.dart';
 import 'package:stickify/bloc/telegram_cubit/telegram_cubit.dart';
 import 'package:stickify/components/components.dart';
 import 'package:stickify/core/logger.dart';
+import 'package:stickify/core/telegram_config.dart';
 
 class Footer extends StatelessWidget {
   const Footer({super.key});
@@ -30,7 +31,7 @@ class Footer extends StatelessWidget {
           type: ButtonType.primary,
           onClick: () {
             logger.i('Upload button');
-            telegramCubit.uploadToTelegram("${TelegramWebApp.instance.initData.user.id}");
+            telegramCubit.uploadToTelegram("${chatId()}");
           },
         ),
       ],
