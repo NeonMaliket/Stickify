@@ -5,7 +5,7 @@ final dio = Dio();
 
 
 String serverHost() {
-  final url  = const String.fromEnvironment('STICKIFY_API', defaultValue: "http://10.0.2.2:8080");
+  final url  = 'https://0fd7-178-158-193-142.ngrok-free.app';
   logger.i('URL: $url');
   return url;
 }

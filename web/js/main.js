@@ -4,7 +4,3 @@ document.addEventListener("touchmove", function (event) {
     {
         passive: false
     });
-
-//DEV TOOLS
-eruda.init();
-

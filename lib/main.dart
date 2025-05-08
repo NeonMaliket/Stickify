@@ -9,6 +9,7 @@ import 'package:stickify/theme/app_theme.dart';
 import 'bloc/alert_cubit/alert_cubit.dart';
 import 'bloc/image_editor/image_editor_bloc.dart';
 import 'bloc/image_generator/image_generator_bloc.dart';
+import 'bloc/invoice_cubit/invoice_cubit.dart';
 import 'bloc/loader_cubit/loader_cubit.dart';
 import 'bloc/telegram_cubit/telegram_cubit.dart';
 import 'features/main_page/view/main_page.dart';
@@ -37,10 +38,11 @@ class MyApp extends StatelessWidget {
 
           BlocProvider(create: (_) => ImageGeneratorBloc()),
           BlocProvider(create: (_) => MenuCubit()),
+          BlocProvider(create: (_) => InvoiceCubit()),
           BlocProvider(
             create:
                 (ctx) =>
-                    AiCubit(ctx.read<LoaderCubit>()),
+                    AiCubit(ctx.read<LoaderCubit>(), ctx.read<InvoiceCubit>()),
           ),
 
           BlocProvider(

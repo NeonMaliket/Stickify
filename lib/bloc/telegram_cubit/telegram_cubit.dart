@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:new_telegram_web_app/telegram_web_app.dart';
 import 'package:stickify/bloc/ai_cubit/ai_cubit.dart';
 import 'package:stickify/bloc/app_bloc.dart';
 import 'package:stickify/bloc/menu_cubit/menu_cubit.dart';
