@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 import 'package:stickify/bloc/ai_cubit/ai_cubit.dart';
-import 'package:stickify/bloc/invoice_cubit/invoice_cubit.dart';
 import 'package:stickify/components/body/upload_select.dart';
 import 'package:stickify/core/core.dart';
 import 'package:stickify/core/logger.dart';
@@ -72,9 +71,7 @@ class _GeneratePreviewState extends State<GeneratePreview> {
               logger.i('Generate AI');
               if (_formKey.currentState?.validate() ?? false) {
                 logger.i('Prompt is Valid');
-                context.read<InvoiceCubit>().payAiInvoice(
-                  _controller.text,
-                );
+                context.read<AiCubit>().sendToAi(_controller.text);
               }
             },
             child: AiBlocWidget(textStileSmall: textStileSmall),
