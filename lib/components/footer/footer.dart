@@ -28,23 +28,26 @@ class Footer extends StatelessWidget {
           },
         ),
 
-        BlocBuilder<MenuCubit, MenuState>(
-          builder: (context, state) {
-            if (state is UploadMenuItem) {
-              return AppButton(
-                title: "Upload to Telegram",
-                type: ButtonType.primary,
-                onClick: () {
-                  logger.i('Upload button');
-                  telegramCubit.uploadToTelegram("${chatId()}");
-                },
-              );
-            }
-            return PaymentStarsButton();
+        BlocBuilder<ImageUploaderBloc, ImageUploaderState>(
+          builder: (_, imageUploaderState) {
+            return BlocBuilder<MenuCubit, MenuState>(
+              builder: (_, menuState) {
+                if (menuState is UploadMenuItem &&
+                    imageUploaderState is ImageUploadCompleteState) {
+                  return AppButton(
+                    title: "Upload to Telegram",
+                    type: ButtonType.primary,
+                    onClick: () {
+                      logger.i('Upload button');
+                      telegramCubit.uploadToTelegram("${chatId()}");
+                    },
+                  );
+                }
+                return PaymentStarsButton();
+              },
+            );
           },
         ),
-
-
       ],
     );
   }
