@@ -20,9 +20,10 @@ class AiGenerate extends AiState {
 class AiGenerating extends AiState {}
 
 class AiGenerated extends AiState {
+  final String prompt;
   final Uint8List resource;
 
-  AiGenerated(this.resource);
+  AiGenerated(this.prompt, this.resource);
 
   @override
   List<Object> get props => [resource];

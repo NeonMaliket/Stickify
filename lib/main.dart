@@ -47,8 +47,7 @@ class MyApp extends StatelessWidget {
 
           BlocProvider(create: (ctx) => InvoiceCubit(
               ctx.read<LoaderCubit>(),
-              ctx.read<AlertCubit>(),
-              ctx.read<AiCubit>()
+              ctx.read<AlertCubit>()
           )),
 
           BlocProvider(

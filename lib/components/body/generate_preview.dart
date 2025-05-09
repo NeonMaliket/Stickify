@@ -107,24 +107,10 @@ class AiBlocWidget extends StatelessWidget {
           children: [
             Icon(Icons.send_time_extension_rounded, color: Colors.orange),
             Text('Send to AI', style: textStileSmall),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '100',
-                  style: context.telegramTheme().textTheme.titleSmall,
-                ),
-                Image.asset(
-                  'assets/images/star_icon.png',
-                  width: 30,
-                  height: 30,
-                ),
-              ],
-            ),
           ],
         );
       },
     );
   }
 }
+

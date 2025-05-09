@@ -8,7 +8,8 @@ class AppButton extends StatelessWidget {
     required this.title,
     required this.type,
     required this.onClick,
-    this.icon,
+    this.enabled = true,
+    this.tile,
     this.width = 100,
     this.borderRadius,
   });
@@ -16,8 +17,9 @@ class AppButton extends StatelessWidget {
   final String title;
   final ButtonType type;
   final Function() onClick;
-  final Icon? icon;
+  final Widget? tile;
   final double width;
+  final bool enabled;
 
   final BorderRadius? borderRadius;
 
@@ -43,16 +45,29 @@ class AppButton extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: onClick,
+        onPressed: () {
+          if (enabled) {
+            onClick();
+          }
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            icon ?? SizedBox.shrink(),
-            SizedBox(width: 5),
-            Text(
-              title,
-              style: context.telegramTheme().textTheme.titleSmall?.copyWith(
-                color: type.isPrimary() ? secondaryColor : primaryColor,
+            tile ?? SizedBox.shrink(),
+            SizedBox(width: 10),
+            Theme(
+              data: ThemeData(
+                textTheme: context.telegramTheme().textTheme.copyWith(
+                  titleSmall: context.telegramTheme().textTheme.titleSmall?.copyWith(
+                    color: type.isPrimary() ? secondaryColor : primaryColor,
+                  )
+                )
+              ),
+              child: Text(
+                title,
+                style: context.telegramTheme().textTheme.titleSmall?.copyWith(
+                  color: type.isPrimary() ? secondaryColor : primaryColor,
+                ),
               ),
             ),
           ],

@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'package:new_telegram_web_app/telegram_web_app.dart';
-import 'package:stickify/bloc/ai_cubit/ai_cubit.dart';
 import 'package:stickify/bloc/alert_cubit/alert_cubit.dart';
 import 'package:stickify/bloc/loader_cubit/loader_cubit.dart';
 import 'package:stickify/core/dio.dart';
@@ -12,10 +11,9 @@ import 'package:stickify/core/telegram_config.dart';
 part 'invoice_state.dart';
 
 class InvoiceCubit extends Cubit<InvoiceState> {
-  InvoiceCubit(this._loaderCubit, this._alertCubit, this._aiCubit)
+  InvoiceCubit(this._loaderCubit, this._alertCubit)
     : super(InvoiceInitial());
 
-  final AiCubit _aiCubit;
   final AlertCubit _alertCubit;
   final LoaderCubit _loaderCubit;
 
@@ -27,7 +25,6 @@ class InvoiceCubit extends Cubit<InvoiceState> {
         switch (status) {
           case InvoiceStatus.paid:
             emit(AiInvoicePaidSuccessState());
-            _aiCubit.sendToAi(prompt);
             _loaderCubit.loaded();
           case InvoiceStatus.cancelled:
             emit(AiInvoiceUserRejectState());

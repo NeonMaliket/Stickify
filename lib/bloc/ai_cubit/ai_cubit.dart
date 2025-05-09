@@ -41,6 +41,6 @@ class AiCubit extends Cubit<AiState> {
     }
 
     _loaderCubit.loaded();
-    emit(AiGenerated(response.data ?? Uint8List(0)));
+    emit(AiGenerated(prompt, response.data ?? Uint8List(0)));
   }
 }
