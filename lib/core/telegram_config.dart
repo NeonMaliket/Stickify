@@ -7,12 +7,14 @@ bool isDev() {
   return profile.toLowerCase() == "dev".toLowerCase();
 }
 
-
-
 TelegramWebApp telegramWebApp() {
-  return isDev() ? TelegramWebAppFake() : TelegramWebApp.instance;
+  return TelegramWebApp.instance;
 }
 
 int chatId() {
   return isDev() ? 7792645005 : TelegramWebApp.instance.initData.user.id;
+}
+
+void telegramLog(message) {
+  telegramWebApp().showConfirm('Telegram Log: $message');
 }

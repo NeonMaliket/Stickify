@@ -27,3 +27,20 @@ class InvoiceLinkGenerationErrorState extends InvoiceState {
   @override
   List<Object> get props => [message];
 }
+
+class AiInvoiceCreatedState extends InvoiceState {}
+
+class AiInvoiceInProgressState extends InvoiceState {}
+
+class AiInvoicePaidSuccessState extends InvoiceState {}
+
+class AiInvoiceUserRejectState extends InvoiceState {}
+
+class AiInvoiceErrorState extends InvoiceState {
+  final String message;
+
+  AiInvoiceErrorState(this.message);
+
+  @override
+  List<Object> get props => [message];
+}

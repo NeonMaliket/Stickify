@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 import 'package:stickify/bloc/ai_cubit/ai_cubit.dart';
+import 'package:stickify/bloc/invoice_cubit/invoice_cubit.dart';
 import 'package:stickify/components/body/upload_select.dart';
 import 'package:stickify/core/core.dart';
 import 'package:stickify/core/logger.dart';
@@ -71,54 +72,62 @@ class _GeneratePreviewState extends State<GeneratePreview> {
               logger.i('Generate AI');
               if (_formKey.currentState?.validate() ?? false) {
                 logger.i('Prompt is Valid');
-                context.read<AiCubit>().sendToAi(_controller.text);
+                context.read<InvoiceCubit>().generateInvoiceLink(
+                  _controller.text,
+                );
               }
             },
-            child: BlocBuilder<AiCubit, AiState>(
-              builder: (context, state) {
-                if (state is AiGenerated) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: MemoryImage(state.resource),
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                  );
-                } else if (state is AiGenerating) {
-                  return SizedBox.expand();
-                }
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.send_time_extension_rounded,
-                      color: Colors.orange,
-                    ),
-                    Text('Send to AI', style: textStileSmall),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          '100',
-                          style: context.telegramTheme().textTheme.titleSmall,
-                        ),
-                        Image.asset(
-                          'assets/images/star_icon.png',
-                          width: 30,
-                          height: 30,
-                        ),
-                      ],
-                    ),
-                  ],
-                );
-              },
-            ),
+            child: AiBlocWidget(textStileSmall: textStileSmall),
           ),
         ),
       ],
+    );
+  }
+}
+
+class AiBlocWidget extends StatelessWidget {
+  const AiBlocWidget({super.key, required this.textStileSmall});
+
+  final TextStyle? textStileSmall;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AiCubit, AiState>(
+      builder: (context, state) {
+        if (state is AiGenerated) {
+          return Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(image: MemoryImage(state.resource)),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+          );
+        } else if (state is AiGenerating) {
+          return SizedBox.expand();
+        }
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(Icons.send_time_extension_rounded, color: Colors.orange),
+            Text('Send to AI', style: textStileSmall),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '100',
+                  style: context.telegramTheme().textTheme.titleSmall,
+                ),
+                Image.asset(
+                  'assets/images/star_icon.png',
+                  width: 30,
+                  height: 30,
+                ),
+              ],
+            ),
+          ],
+        );
+      },
     );
   }
 }

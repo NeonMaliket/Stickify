@@ -12,6 +12,7 @@ import 'bloc/image_generator/image_generator_bloc.dart';
 import 'bloc/invoice_cubit/invoice_cubit.dart';
 import 'bloc/loader_cubit/loader_cubit.dart';
 import 'bloc/telegram_cubit/telegram_cubit.dart';
+import 'features/loader/loader.dart';
 import 'features/main_page/view/main_page.dart';
 
 void main() {
@@ -38,7 +39,11 @@ class MyApp extends StatelessWidget {
 
           BlocProvider(create: (_) => ImageGeneratorBloc()),
           BlocProvider(create: (_) => MenuCubit()),
-          BlocProvider(create: (_) => InvoiceCubit()),
+          BlocProvider(create: (ctx) => InvoiceCubit(
+              ctx.read<LoaderCubit>(),
+              ctx.read<AlertCubit>(),
+              ctx.read<AiCubit>()
+          )),
           BlocProvider(
             create:
                 (ctx) =>

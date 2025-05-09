@@ -24,7 +24,6 @@ class AiCubit extends Cubit<AiState> {
 
     generateInvoiceLink.then((link) => telegramWebApp().openInvoice(link, (status) {
       logger.i('INVOICE STATUS: $status');
-      telegramWebApp().showConfirm('message: $status');
     }));
 
 
