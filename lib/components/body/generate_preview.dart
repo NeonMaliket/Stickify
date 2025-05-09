@@ -72,7 +72,7 @@ class _GeneratePreviewState extends State<GeneratePreview> {
               logger.i('Generate AI');
               if (_formKey.currentState?.validate() ?? false) {
                 logger.i('Prompt is Valid');
-                context.read<InvoiceCubit>().generateInvoiceLink(
+                context.read<InvoiceCubit>().payAiInvoice(
                   _controller.text,
                 );
               }
