@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 import 'package:stickify/bloc/ai_cubit/ai_cubit.dart';
+import 'package:stickify/bloc/image_uploader/image_uploader_bloc.dart';
 import 'package:stickify/components/body/upload_select.dart';
 import 'package:stickify/core/core.dart';
 import 'package:stickify/core/logger.dart';
@@ -92,6 +93,7 @@ class AiBlocWidget extends StatelessWidget {
     return BlocBuilder<AiCubit, AiState>(
       builder: (context, state) {
         if (state is AiGenerated) {
+          context.read<ImageUploaderBloc>().add(ImageUploaderResetEvent());
           return Container(
             decoration: BoxDecoration(
               image: DecorationImage(image: MemoryImage(state.resource)),

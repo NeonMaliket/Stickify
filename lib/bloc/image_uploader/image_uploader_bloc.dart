@@ -13,6 +13,12 @@ part 'image_uploader_state.dart';
 class ImageUploaderBloc extends Bloc<ImageUploaderEvent, ImageUploaderState> {
   ImageUploaderBloc() : super(ImageUploaderInitial()) {
     on<ImageUploadEvent>(onUploadEvent);
+    on<ImageUploaderResetEvent>(onImageUploaderResetEvent);
+  }
+
+  void onImageUploaderResetEvent(ImageUploaderResetEvent event, emit) async {
+    logger.i('Resetting image uploader state');
+    emit(ImageUploaderInitial());
   }
 
   void onUploadEvent(ImageUploadEvent event, emit) async {
