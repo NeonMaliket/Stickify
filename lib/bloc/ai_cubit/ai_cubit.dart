@@ -28,9 +28,11 @@ class AiCubit extends Cubit<AiState> {
           data: {'prompt': prompt, 'chatId': chatId()},
           options: Options(responseType: ResponseType.bytes),
         )
-        .onError((_, __) {
+        .onError((o, stackTrace) {
           _loaderCubit.loaded();
           emit(AiGenerationError('Generation error'));
+          logger.w('DIO error: $o');
+          logger.w('DIO error: $stackTrace');
           return Future.error('DIO error');
         });
 

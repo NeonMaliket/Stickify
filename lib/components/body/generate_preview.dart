@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:material_text_fields/material_text_fields.dart';
 import 'package:material_text_fields/utils/form_validation.dart';
 import 'package:stickify/bloc/ai_cubit/ai_cubit.dart';
-import 'package:stickify/bloc/image_uploader/image_uploader_bloc.dart';
+import 'package:stickify/bloc/main_image_cubit/main_image_cubit.dart';
 import 'package:stickify/components/body/upload_select.dart';
 import 'package:stickify/core/core.dart';
 import 'package:stickify/core/logger.dart';
@@ -90,13 +90,12 @@ class AiBlocWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AiCubit, AiState>(
+    return BlocBuilder<MainImageCubit, MainImageState>(
       builder: (context, state) {
-        if (state is AiGenerated) {
-          context.read<ImageUploaderBloc>().add(ImageUploaderResetEvent());
+        if (state is MainImageSelected && state.isGenerated) {
           return Container(
             decoration: BoxDecoration(
-              image: DecorationImage(image: MemoryImage(state.resource)),
+              image: DecorationImage(image: MemoryImage(state.imageEdited)),
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
           );
@@ -115,4 +114,3 @@ class AiBlocWidget extends StatelessWidget {
     );
   }
 }
-

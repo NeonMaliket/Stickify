@@ -1,5 +1,5 @@
 import 'package:new_telegram_web_app/telegram_web_app.dart';
-
+import 'package:stickify/core/logger.dart';
 
 final profile = const String.fromEnvironment("PROFILE").toLowerCase();
 
@@ -12,6 +12,7 @@ TelegramWebApp telegramWebApp() {
 }
 
 int chatId() {
+  logger.i("Is DEV mode: ${isDev()}");
   return isDev() ? 7792645005 : TelegramWebApp.instance.initData.user.id;
 }
 

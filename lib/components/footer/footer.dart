@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stickify/bloc/app_bloc.dart';
-import 'package:stickify/bloc/menu_cubit/menu_cubit.dart';
+import 'package:stickify/bloc/main_image_cubit/main_image_cubit.dart';
 import 'package:stickify/bloc/telegram_cubit/telegram_cubit.dart';
 import 'package:stickify/components/components.dart';
 import 'package:stickify/components/payment_stars/payment_stars_button.dart';
@@ -13,7 +13,7 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<ImageEditorBloc>();
+    final imageEditorBloc = context.read<ImageEditorBloc>();
 
     final telegramCubit = context.read<TelegramCubit>();
     return Column(
@@ -24,28 +24,24 @@ class Footer extends StatelessWidget {
           type: ButtonType.secondary,
           onClick: () {
             logger.i('Edit button');
-            bloc.add(EditImageEvent(context));
+            imageEditorBloc.add(EditImageEvent(context));
           },
         ),
 
-        BlocBuilder<ImageUploaderBloc, ImageUploaderState>(
-          builder: (_, imageUploaderState) {
-            return BlocBuilder<MenuCubit, MenuState>(
-              builder: (_, menuState) {
-                if (menuState is UploadMenuItem &&
-                    imageUploaderState is ImageUploadCompleteState) {
-                  return AppButton(
-                    title: "Upload to Telegram",
-                    type: ButtonType.primary,
-                    onClick: () {
-                      logger.i('Upload button');
-                      telegramCubit.uploadToTelegram("${chatId()}");
-                    },
-                  );
-                }
-                return PaymentStarsButton();
-              },
-            );
+        BlocBuilder<MainImageCubit, MainImageState>(
+          builder: (_, imageState) {
+            if (imageState is MainImageEmpty ||
+                (imageState is MainImageSelected && !imageState.isGenerated)) {
+              return AppButton(
+                title: "Upload to Telegram",
+                type: ButtonType.primary,
+                onClick: () {
+                  logger.i('Upload button');
+                  telegramCubit.uploadToTelegram("${chatId()}");
+                },
+              );
+            }
+            return PaymentStarsButton();
           },
         ),
       ],

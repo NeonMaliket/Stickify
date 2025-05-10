@@ -3,9 +3,8 @@ import 'package:stickify/core/logger.dart';
 
 final dio = Dio();
 
-
 String serverHost() {
-  final url  = 'https://1606-178-158-193-142.ngrok-free.app';
+  final url = 'http://localhost:8080';
   logger.i('URL: $url');
   return url;
 }

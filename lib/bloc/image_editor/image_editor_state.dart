@@ -10,15 +10,7 @@ class ImageEditorInitial extends ImageEditorState {}
 
 class EditInProgressState extends ImageEditorState {}
 
-class EditCompleteState extends ImageEditorState {
-  final int menuIndex;
-  final Uint8List editedImage;
-
-  EditCompleteState(this.editedImage, this.menuIndex);
-
-  @override
-  List<Object> get props => [editedImage];
-}
+class EditCompleteState extends ImageEditorState {}
 
 class EditErrorState extends ImageEditorState {
   final String message;

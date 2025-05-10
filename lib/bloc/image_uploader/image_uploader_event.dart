@@ -7,5 +7,3 @@ abstract class ImageUploaderEvent extends Equatable {
 }
 
 class ImageUploadEvent extends ImageUploaderEvent {}
-
-class ImageUploaderResetEvent extends ImageUploaderEvent {}
