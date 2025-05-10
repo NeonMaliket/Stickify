@@ -27,7 +27,7 @@ class MainPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('1.0.1', style: TextStyle(color: Colors.white)),
+              Text('1.1.1', style: TextStyle(color: Colors.white)),
               Header(),
               Expanded(flex: 3, child: Center(child: Body())),
               Expanded(flex: 1, child: Footer()),
