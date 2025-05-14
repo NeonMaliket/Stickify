@@ -4,7 +4,7 @@ import 'package:stickify/core/logger.dart';
 final dio = Dio();
 
 String serverHost() {
-  final url = 'http://localhost:8080';
+  final url = 'https://351f-178-158-193-142.ngrok-free.app';
   logger.i('URL: $url');
   return url;
 }
